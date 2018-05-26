@@ -13,7 +13,7 @@
 Route::resource('v1', 'UserController');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
