@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Authadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -30,14 +31,14 @@ class LoginController extends Controller
     }
     public function showLoginForm()
     {
-        return view('Authadmin.login');
+        return view('authadmin.login');
     }
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email'=> 'request | email',
-            'password'=> 'request| min:6'
-            ]);
+        'email'=> 'request | email',
+        'password'=> 'request | min:6'
+        ]);
         $credential = [
         'email' => $request->email,
         'password' => $request->password
