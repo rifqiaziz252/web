@@ -67,40 +67,6 @@ class BukuController extends Controller
         return $export->download('xlsx');
     }
 
-    public function import(Request $request)
-    {
-        $this->validate($request, [
-            'importBuku' => 'required'
-        ]);
-
-        if ($request->hasFile('importBuku')) {
-            $path = $request->file('importBuku')->getRealPath();
-
-            $data = Excel::load($path, function($reader){})->get();
-            $a = collect($data);
-
-            if (!empty($a) && $a->count()) {
-                foreach ($a as $key => $value) {
-                    $insert[] = [
-                            'judul' => $value->judul, 
-                            'isbn' => $value->isbn, 
-                            'pengarang' => $value->pengarang, 
-                            'penerbit' => $value->penerbit,
-                            'tahun_terbit' => $value->tahun_terbit, 
-                            'jumlah_buku' => $value->jumlah_buku, 
-                            'deskripsi' => $value->deskripsi, 
-                            'lokasi' => $value->lokasi,
-                            'cover' => NULL];
-
-                    Buku::create($insert[$key]);
-                        
-                    }
-                  
-            };
-        }
-        alert()->success('Berhasil.','Data telah diimport!');
-        return back();
-    }
 
     /**
      * Store a newly created resource in storage.
